@@ -1,1 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050505">
+  <title>TM Handbook | SPMRP</title>
+  <link rel="icon" type="image/png" href="https://i.postimg.cc/fWdBq86b/spmprlog44.png">
+  <link rel="apple-touch-icon" href="https://i.postimg.cc/fWdBq86b/spmprlog44.png">
+  <style>
+    :root {
+      --gold: #d7ad48;
+      --gold-light: #f4d987;
+      --gold-dark: #76551c;
+      --ink: #050505;
+      --panel: #101010;
+      --panel2: #151515;
+      --text: #eee9dc;
+      --muted: #b7b0a1;
+      --line: rgba(215,173,72,.45);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 50% -15%, rgba(165,119,32,.18), transparent 42%),
+        #050505;
+      font: 15px/1.7 "Segoe UI", Arial, sans-serif;
+    }
+    a { color: var(--gold-light); }
+    .topbar {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 12px clamp(16px, 4vw, 46px);
+      background: rgba(5,5,5,.94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+    .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .brand img { width: 44px; height: 44px; object-fit: contain; }
+    .brand strong { display: block; letter-spacing: 1.4px; font-size: 13px; }
+    .brand span { display: block; color: var(--muted); font-size: 11px; letter-spacing: 1.3px; }
+    .top-label {
+      color: var(--gold-light); border: 1px solid var(--gold-dark); border-radius: 999px;
+      padding: 5px 11px; font-size: 11px; letter-spacing: 1.3px; white-space: nowrap;
+    }
+    .hero { text-align: center; padding: 48px 20px 32px; }
+    .hero img {
+      display: block; width: min(520px, 90%); max-height: 220px; object-fit: contain;
+      margin: 0 auto 18px; filter: drop-shadow(0 8px 24px rgba(215,173,72,.12));
+    }
+    .eyebrow { color: var(--gold-light); letter-spacing: 4px; text-transform: uppercase; font-size: 11px; font-weight: 700; }
+    h1 { margin: 7px 0 4px; font-size: clamp(28px, 5vw, 46px); line-height: 1.15; letter-spacing: 1.5px; }
+    h1 span { color: var(--gold-light); }
+    .subtitle { color: var(--muted); margin: 12px auto 0; max-width: 620px; }
+    .rule { height: 2px; width: 110px; margin: 22px auto 0; background: linear-gradient(90deg,transparent,var(--gold-light),transparent); }
+    .layout { display: grid; grid-template-columns: 245px minmax(0, 820px); gap: 22px; max-width: 1160px; margin: 0 auto; padding: 0 22px 60px; align-items: start; }
+    nav {
+      position: sticky; top: 84px; background: linear-gradient(145deg,#111,#080808);
+      border: 1px solid var(--line); border-radius: 12px; padding: 17px;
+      box-shadow: 0 0 0 1px rgba(215,173,72,.05), 0 16px 40px #000;
+    }
+    nav h2 { margin: 0 0 10px; color: var(--gold-light); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
+    nav a { display: block; color: #d9d2c2; text-decoration: none; padding: 7px 9px; border-radius: 6px; font-size: 13px; }
+    nav a:hover { background: rgba(215,173,72,.1); color: var(--gold-light); }
+    main { min-width: 0; }
+    section, .notice {
+      background: linear-gradient(145deg,rgba(20,20,20,.98),rgba(10,10,10,.98));
+      border: 1px solid var(--line); border-radius: 12px; padding: clamp(18px,3vw,28px);
+      margin-bottom: 17px; box-shadow: 0 12px 32px rgba(0,0,0,.28);
+    }
+    section h2 { margin: 0 0 14px; font-size: 19px; letter-spacing: .6px; color: var(--gold-light); }
+    section h2 .num { color: var(--gold); margin-right: 9px; font-size: 12px; letter-spacing: 1px; }
+    h3 { color: #e8d39b; font-size: 15px; margin: 20px 0 7px; }
+    p { margin: 8px 0 12px; }
+    ul, ol { padding-left: 22px; margin: 8px 0 12px; }
+    li { margin: 5px 0; }
+    .notice { border-left: 4px solid var(--gold); color: #e7ddc5; }
+    .notice strong { color: var(--gold-light); }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { text-align: left; padding: 10px 11px; border-bottom: 1px solid rgba(215,173,72,.19); vertical-align: top; }
+    th { color: var(--gold-light); background: rgba(215,173,72,.08); }
+    .tag { display: inline-block; padding: 2px 8px; border: 1px solid var(--gold-dark); border-radius: 5px; color: var(--gold-light); font-size: 11px; white-space: nowrap; }
+    .acronyms { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+    .acronym { padding: 12px; background: #0a0a0a; border: 1px solid rgba(215,173,72,.23); border-radius: 8px; }
+    .acronym b { display: inline-block; min-width: 58px; color: var(--gold-light); letter-spacing: 1px; }
+    .acronym span { color: #d6d0c2; }
+    footer { text-align: center; padding: 24px 16px 38px; color: #928a79; font-size: 11px; letter-spacing: 1px; }
+    .gold { color: var(--gold-light); }
+    @media (max-width: 800px) {
+      .layout { grid-template-columns: 1fr; padding: 0 13px 35px; }
+      nav { position: relative; top: auto; }
+      nav .navlinks { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 2px; }
+      .hero { padding-top: 32px; }
+      .acronyms { grid-template-columns: 1fr; }
+      .top-label { font-size: 9px; }
+    }
+    @media print {
+      body { background: #050505; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      .topbar, nav { position: static; }
+      .layout { display: block; }
+      section, .notice { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="https://i.postimg.cc/fWdBq86b/spmprlog44.png" alt="SPMRP logo">
+      <div><strong>SPMRP STAFF</strong><span>SAINT PAUL MINNESOTA ROLEPLAY</span></div>
+    </div>
+    <div class="top-label">INTERNAL STAFF DOCUMENT</div>
+  </header>
 
+  <div class="hero">
+    <img src="https://i.postimg.cc/fWdBq86b/spmprlog44.png" alt="Saint Paul Minnesota Roleplay logo">
+    <div class="eyebrow">Staff Operations • Roblox Roleplay</div>
+    <h1><span>TM</span> HANDBOOK</h1>
+    <div class="subtitle">Trail Moderator standards, moderation procedures, staff authority, and community terminology.</div>
+    <div class="rule"></div>
+  </div>
+
+  <div class="layout">
+    <nav aria-label="Handbook contents">
+      <h2>Contents</h2>
+      <div class="navlinks">
+        <a href="#welcome">01 · Welcome</a>
+        <a href="#role">02 · TM Role</a>
+        <a href="#conduct">03 · Conduct</a>
+        <a href="#authority">04 · Authority</a>
+        <a href="#procedure">05 · Procedures</a>
+        <a href="#roleplay">06 · Roleplay</a>
+        <a href="#reports">07 · Reports</a>
+        <a href="#escalation">08 · Escalation</a>
+        <a href="#abbreviations">09 · Acronyms</a>
+        <a href="#abuse">10 · Abuse of Power</a>
+        <a href="#evaluation">11 · Evaluation</a>
+        <a href="#checklist">12 · Checklist</a>
+        <a href="#agreement">13 · Agreement</a>
+      </div>
+    </nav>
+
+    <main>
+      <div class="notice"><strong>Core principle:</strong> Help the community, enforce written rules fairly, document what you observe, and never use staff permissions to win an argument or settle a personal disagreement.</div>
+
+      <section id="welcome">
+        <h2><span class="num">01</span>Welcome to SPMRP Staff</h2>
+        <p>Welcome to the <b>Saint Paul Minnesota Roleplay (SPMRP)</b> Staff Team. A <b>Trail Moderator (TM)</b> is a trial-based staff member whose professionalism, activity, judgment, and knowledge of the rules are evaluated before they may be considered for full Moderator.</p>
+        <p>This handbook explains the expected standards. Follow it alongside the current SPMRP rules, Roblox Community Standards, and instructions from authorized staff leadership.</p>
+      </section>
+
+      <section id="role">
+        <h2><span class="num">02</span>The Trail Moderator Role</h2>
+        <p>Trail Moderators help keep sessions organized and welcoming while learning SPMRP's moderation procedures.</p>
+        <ul>
+          <li>Observe sessions and identify possible rule violations.</li>
+          <li>Answer player questions and explain rules calmly.</li>
+          <li>Collect factual evidence and submit incident reports.</li>
+          <li>Help de-escalate minor conflicts when appropriate.</li>
+          <li>Refer serious, repeated, unclear, or disputed cases to a full Moderator or higher.</li>
+          <li>Accept feedback and learn from mistakes.</li>
+        </ul>
+        <p><b>A TM is not automatically a full Moderator.</b> Your title does not grant permissions that leadership has not assigned.</p>
+      </section>
+
+      <section id="conduct">
+        <h2><span class="num">03</span>Staff Code of Conduct</h2>
+        <h3>Professionalism</h3><p>Treat players and staff respectfully, even when someone is upset or uncooperative.</p>
+        <h3>Fairness</h3><p>Apply the same written rules to friends, strangers, civilians, department members, and staff alike.</p>
+        <h3>Integrity</h3><p>Never fabricate evidence, exaggerate claims, falsely accuse a player, or conceal misconduct to protect a friend.</p>
+        <h3>Confidentiality</h3><p>Keep staff discussions, private reports, and restricted evidence within authorized channels. Never share passwords or another person's sensitive personal information.</p>
+        <h3>Accountability and activity</h3><p>Own your mistakes, follow the team's leave procedure, and communicate if you cannot meet activity expectations.</p>
+        <h3>Community safety</h3><p>Harassment, bullying, discrimination, threats, exploitation, and other prohibited conduct are not acceptable. Follow Roblox Community Standards as well as SPMRP rules.</p>
+      </section>
+
+      <section id="authority">
+        <h2><span class="num">04</span>Moderation Authority</h2>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Action</th><th>TM standard</th></tr></thead>
+          <tbody>
+            <tr><td>Observe, assist, explain rules</td><td><span class="tag">Allowed</span></td></tr>
+            <tr><td>Document incidents and submit reports</td><td><span class="tag">Allowed</span></td></tr>
+            <tr><td>Informal reminder</td><td><span class="tag">Allowed</span></td></tr>
+            <tr><td>Official warning</td><td>Only if the TM role is explicitly authorized to issue one</td></tr>
+            <tr><td>Kick, ban, or other formal punishment</td><td>Requires explicit permission from leadership</td></tr>
+            <tr><td>Change game data or use unapproved commands</td><td>Not permitted without specific authorization</td></tr>
+            <tr><td>Override another staff member</td><td>Escalate legitimate concerns; do not start a public argument</td></tr>
+          </tbody>
+        </table></div>
+        <p><b>Never use a command just because it is available.</b> If your configured permissions or leadership's instructions are stricter, follow the stricter rule.</p>
+      </section>
+
+      <section id="procedure">
+        <h2><span class="num">05</span>Moderation Procedure</h2>
+        <ol>
+          <li><b>Observe:</b> Find out what actually happened before reaching a conclusion.</li>
+          <li><b>Verify:</b> Review available chat, evidence, context, and player statements.</li>
+          <li><b>Identify the rule:</b> Know which written SPMRP rule may have been broken. Ask for guidance if unsure.</li>
+          <li><b>Respond proportionately:</b> A minor first-time issue may call for a reminder. Serious or repeated issues should be documented and escalated.</li>
+          <li><b>Record:</b> Note the username, time, context, evidence, rule concern, and action taken.</li>
+          <li><b>Escalate:</b> Refer anything beyond your authority or confidence to a full Moderator or senior staff member.</li>
+        </ol>
+      </section>
+
+      <section id="roleplay">
+        <h2><span class="num">06</span>Roleplay Enforcement</h2>
+        <p>SPMRP aims to provide immersive civilian life and public safety roleplay, including Law Enforcement, Fire &amp; EMS, and Dispatch. Enforce the written rules, not your personal preferences.</p>
+        <ul>
+          <li>Fail roleplay or unrealistic actions that violate SPMRP policy.</li>
+          <li>Random deathmatching or intentional disruption, where prohibited.</li>
+          <li>Metagaming or powergaming, where prohibited.</li>
+          <li>Vehicle misuse and deliberate interference with a scene.</li>
+          <li>Disrupting emergency services or repeatedly trolling/spamming.</li>
+          <li>Impersonating staff or misusing staff authority.</li>
+        </ul>
+        <p>Consider context before taking action. A confusing situation or an unproven report is not, by itself, proof that a player broke a rule.</p>
+      </section>
+
+      <section id="reports">
+        <h2><span class="num">07</span>Handling Player Reports</h2>
+        <ol>
+          <li>Let the reporting player explain the concern.</li>
+          <li>Ask for relevant details without encouraging arguments.</li>
+          <li>Review evidence and context when available.</li>
+          <li>Hear the other side when appropriate.</li>
+          <li>Record the report and refer it to the right staff member.</li>
+          <li>Do not promise a punishment before the review is complete.</li>
+        </ol>
+        <h3>Incident report template</h3>
+        <p><b>Player username:</b> __________________________<br>
+        <b>Reporting TM:</b> __________________________<br>
+        <b>Date/time:</b> __________________________<br>
+        <b>Server/session:</b> __________________________<br>
+        <b>Rule concern:</b> __________________________<br>
+        <b>Factual description:</b> __________________________<br>
+        <b>Evidence:</b> __________________________<br>
+        <b>Action taken / help needed:</b> __________________________</p>
+      </section>
+
+      <section id="escalation">
+        <h2><span class="num">08</span>When to Escalate</h2>
+        <p>Contact a full Moderator or higher-ranking staff member when:</p>
+        <ul>
+          <li>A player repeatedly breaks rules after intervention.</li>
+          <li>A case involves serious harassment, threats, or discrimination.</li>
+          <li>A staff member may be abusing permissions.</li>
+          <li>Evidence is disputed or the applicable rule is unclear.</li>
+          <li>A player appeals a significant moderation action.</li>
+          <li>The situation exceeds your permissions or training.</li>
+          <li>You have a conflict of interest, such as being personally involved or close friends with the person reported.</li>
+        </ul>
+        <p>If someone appears to be in immediate danger or shares sensitive personal information, notify appropriate leadership and follow platform safety procedures. Do not repost private information.</p>
+      </section>
+
+      <section id="abbreviations">
+        <h2><span class="num">09</span>Staff Acronyms &amp; Terminology</h2>
+        <p>Use these abbreviations consistently in staff chat and reports. If SPMRP defines a term differently in its official rules, the official definition takes priority.</p>
+        <div class="acronyms">
+          <div class="acronym"><b>TM</b><span>Trail Moderator — trial-based moderation staff.</span></div>
+          <div class="acronym"><b>M</b><span>Moderator — staff member with assigned moderation authority.</span></div>
+          <div class="acronym"><b>SM</b><span>Senior Moderator — senior moderation role, if used by SPMRP.</span></div>
+          <div class="acronym"><b>ADM</b><span>Administrator — staff role with higher-level responsibilities, if used.</span></div>
+          <div class="acronym"><b>FRP</b><span>Fail Roleplay — actions that break established roleplay standards.</span></div>
+          <div class="acronym"><b>RDM</b><span>Random Deathmatch — attacking or killing without valid roleplay grounds, as defined by server rules.</span></div>
+          <div class="acronym"><b>VDM</b><span>Vehicle Deathmatch — using a vehicle to attack or run over players in violation of roleplay rules.</span></div>
+          <div class="acronym"><b>NLR</b><span>New Life Rule — a rule limiting what a player may remember or do after their character is killed, if SPMRP uses it.</span></div>
+          <div class="acronym"><b>MG</b><span>Metagaming — using out-of-character information in character.</span></div>
+          <div class="acronym"><b>PG</b><span>Powergaming — forcing outcomes or performing unrealistic actions contrary to roleplay rules.</span></div>
+          <div class="acronym"><b>AA</b><span>Admin Abuse — misusing administrator powers or permissions.</span></div>
+          <div class="acronym"><b>MA</b><span>Moderator Abuse — misusing moderator authority or permissions.</span></div>
+          <div class="acronym"><b>MR</b><span>Mod Report — a report about a moderation incident or staff conduct.</span></div>
+          <div class="acronym"><b>POV</b><span>Point of View — a player's perspective or submitted recording of an incident.</span></div>
+          <div class="acronym"><b>SS</b><span>Screenshots — image evidence of an incident.</span></div>
+          <div class="acronym"><b>VC</b><span>Voice Chat — Roblox voice communication, where enabled.</span></div>
+          <div class="acronym"><b>OOC</b><span>Out of Character — communication outside the roleplay character.</span></div>
+          <div class="acronym"><b>IC</b><span>In Character — communication or actions performed as the roleplay character.</span></div>
+          <div class="acronym"><b>LTAP</b><span>Leaving to Avoid Punishment — leaving to evade an active moderation process, where evidence supports it.</span></div>
+          <div class="acronym"><b>WARN</b><span>Warning — a formal or informal notice, depending on SPMRP's system.</span></div>
+          <div class="acronym"><b>APPEAL</b><span>A request for another review of a moderation action.</span></div>
+          <div class="acronym"><b>LOG</b><span>Moderation log — a factual record of staff actions and incidents.</span></div>
+        </div>
+        <p><b>Reminder:</b> Acronyms describe possible rule concerns; they are not proof of a violation. Review the facts and the actual SPMRP rule before taking action.</p>
+      </section>
+
+      <section id="abuse">
+        <h2><span class="num">10</span>Abuse of Power &amp; Misconduct</h2>
+        <p>The following may lead to review, suspension of permissions, removal from the TM role, or further discipline depending on severity and evidence:</p>
+        <ul>
+          <li>Using permissions for revenge, favoritism, or personal gain.</li>
+          <li>Threatening players to win an argument.</li>
+          <li>Falsifying, altering, or hiding evidence.</li>
+          <li>Sharing restricted staff information without authorization.</li>
+          <li>Protecting friends from valid reports or targeting people unfairly.</li>
+          <li>Using commands without authorization or claiming powers you do not have.</li>
+          <li>Harassing, bullying, or discriminating against community members.</li>
+          <li>Repeatedly ignoring legitimate staff instructions.</li>
+        </ul>
+        <p>Reports of staff misconduct should be reviewed by an appropriate staff member who is not directly involved in the incident.</p>
+      </section>
+
+      <section id="evaluation">
+        <h2><span class="num">11</span>Trial Evaluation</h2>
+        <p>Leadership may assess your activity, rule knowledge, evidence quality, communication, judgment, consistency, teamwork, use of permissions, and response to feedback.</p>
+        <ul>
+          <li><b>Pass:</b> Meets expectations and may be considered for full Moderator.</li>
+          <li><b>Extension:</b> Needs more time, coaching, or training.</li>
+          <li><b>Removal:</b> Does not meet expectations or commits a serious policy violation.</li>
+        </ul>
+        <p>Promotion is not guaranteed and remains the decision of authorized SPMRP leadership.</p>
+      </section>
+
+      <section id="checklist">
+        <h2><span class="num">12</span>TM Readiness Checklist</h2>
+        <ul>
+          <li>□ I understand the current SPMRP rules.</li>
+          <li>□ I know when to escalate an incident.</li>
+          <li>□ I can write a clear, factual report.</li>
+          <li>□ I communicate professionally with players.</li>
+          <li>□ I use only permissions I have been granted.</li>
+          <li>□ I understand the difference between a reminder and an official punishment.</li>
+          <li>□ I protect confidential staff information.</li>
+          <li>□ I accept feedback and treat players fairly.</li>
+        </ul>
+      </section>
+
+      <section id="agreement">
+        <h2><span class="num">13</span>Staff Agreement</h2>
+        <p>By accepting the Trail Moderator position, I acknowledge that I am expected to follow this handbook, SPMRP's current rules, Roblox Community Standards, and instructions from authorized leadership. I understand that TM is a trial position, my permissions are limited, and my conduct may be reviewed.</p>
+        <p>I agree to represent Saint Paul Minnesota Roleplay with professionalism, fairness, honesty, and respect.</p>
+        <p class="gold"><b>SPMRP Staff Team</b><br><i>Built from the ground up by a single Roblox RPer.</i></p>
+      </section>
+    </main>
+  </div>
+  <footer>SPMRP • SAINT PAUL MINNESOTA ROLEPLAY • TRAIL MODERATOR HANDBOOK</footer>
+</body>
+</html>
